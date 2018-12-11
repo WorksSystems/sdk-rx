@@ -1,29 +1,46 @@
-# sdk-rx
 
-restful xmpp agent sdk
+### install tools / libraries
 
-git clone
-```sh
-git clone https://github.com/WorksSystems/sdk-rx.git
+#### CentOS 6.8
+
+```
+yum install -y git wget
+yum install -y libtool pkgconfig
+yum install -y expat-devel openssl-devel curl-devel
 ```
 
-## Build with CentOS 6.8
+#### Ubuntu 16.04
 
-1. install CentOS 6.8 with option ```Software Development Workstation```
+```
+apt-get install -y git wget
+apt-get install -y libtool pkg-config
+apt-get install -y libexpat1-dev libssl-dev libcurl4-openssl-dev
+```
 
-1. Upgrade git version to 2.2.1 or higher
+### build libstrophe
 
-1. git clone project and build libstrophe.so  https://github.com/strophe/libstrophe
+```
+wget https://github.com/strophe/libstrophe/releases/download/0.9.1/libstrophe-0.9.1.tar.bz2
+tar jxvf libstrophe-0.9.1.tar.bz2
+cd libstrophe-0.9.1
+./configure
+make install
+```
 
-1. git clone https://github.com/WorksSystems/sdk-rx.git
+### build / run rxagent
 
-1. For doxygen, need version after 1.8.11, CentOS only provide 1.6.x, so please build it from [source code ](https://sourceforge.net/projects/doxygen/files/rel-1.8.12/), download doxygen-1.8.12.src.tar.gz
-	1. Need to remove old version `yum remove doxygen`
-	1. For dot command not find, `yum install graphviz`
-	1. need cmake `yum install cmake`
-1. pack the sdk-rx library with ```./pack.sh```, you will get sdk-rx.tgz.
+Build Agent
 
-## Release SDK
-1. Beside sdk-rx.tgz, we should provide a test server, a test user account and a test gateway. Use RESTful API to create a user and a gateway on server.
-2. IoTAgent_Porting_Guide.ppt
-3. A document for the context of uplink and downlink.
+```
+git clone https://github.com/WorksSystems/sdk-rx.git
+cd sdk-rx/build
+make
+cd sdk-rx/examples
+make
+```
+
+Run Agent
+
+```
+./rxtest iop-agent
+```
